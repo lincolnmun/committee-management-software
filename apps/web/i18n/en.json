@@ -1,0 +1,43 @@
+{
+  "common": {
+    "appName": "Dais",
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "signOut": "Sign out"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "es": "Español"
+  },
+  "auth": {
+    "signInTitle": "Sign in to Dais",
+    "signInSubtitle": "We'll email you a magic link — no password needed.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "sendMagicLink": "Send magic link",
+    "orDivider": "or",
+    "continueWithGoogle": "Continue with Google",
+    "checkYourEmail": "Check your email",
+    "checkYourEmailBody": "We sent a sign-in link to {email}. Open it on this device to continue.",
+    "errorGeneric": "Something went wrong. Please try again."
+  },
+  "orgSignup": {
+    "title": "Set up your organization",
+    "subtitle": "This becomes the account every conference you run lives under.",
+    "orgNameLabel": "Organization name",
+    "orgNamePlaceholder": "e.g. Lincoln MUN",
+    "slugLabel": "URL slug",
+    "slugHelp": "Used in links — lowercase letters, numbers, and hyphens only.",
+    "contactEmailLabel": "Contact email (optional)",
+    "createOrganization": "Create organization",
+    "errorSlugTaken": "That slug is already in use — try another."
+  },
+  "adminDashboard": {
+    "title": "Conferences",
+    "emptyTitle": "No conferences yet",
+    "emptyBody": "Create your first conference to start building committees, rooms, and a schedule.",
+    "createConference": "Create conference"
+  }
+}

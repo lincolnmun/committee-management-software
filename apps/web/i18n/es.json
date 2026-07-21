@@ -1,0 +1,43 @@
+{
+  "common": {
+    "appName": "Dais",
+    "loading": "Cargando…",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "signOut": "Cerrar sesión"
+  },
+  "languageSwitcher": {
+    "label": "Idioma",
+    "en": "English",
+    "es": "Español"
+  },
+  "auth": {
+    "signInTitle": "Iniciar sesión en Dais",
+    "signInSubtitle": "Te enviaremos un enlace mágico por correo — no necesitás contraseña.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "vos@ejemplo.com",
+    "sendMagicLink": "Enviar enlace mágico",
+    "orDivider": "o",
+    "continueWithGoogle": "Continuar con Google",
+    "checkYourEmail": "Revisá tu correo",
+    "checkYourEmailBody": "Te enviamos un enlace de acceso a {email}. Abrilo en este dispositivo para continuar.",
+    "errorGeneric": "Algo salió mal. Intentá de nuevo."
+  },
+  "orgSignup": {
+    "title": "Configurá tu organización",
+    "subtitle": "Esta será la cuenta bajo la que vivirá cada conferencia que organices.",
+    "orgNameLabel": "Nombre de la organización",
+    "orgNamePlaceholder": "ej. Lincoln MUN",
+    "slugLabel": "Slug de URL",
+    "slugHelp": "Se usa en los enlaces — solo minúsculas, números y guiones.",
+    "contactEmailLabel": "Correo de contacto (opcional)",
+    "createOrganization": "Crear organización",
+    "errorSlugTaken": "Ese slug ya está en uso — probá con otro."
+  },
+  "adminDashboard": {
+    "title": "Conferencias",
+    "emptyTitle": "Todavía no hay conferencias",
+    "emptyBody": "Creá tu primera conferencia para empezar a armar comités, salas y el cronograma.",
+    "createConference": "Crear conferencia"
+  }
+}
