@@ -127,6 +127,23 @@
     "generateChairCode": "Generate chair join code",
     "generateDelegateCode": "Generate delegate join code"
   },
+  "queue": {
+    "chairTitle": "Speakers list",
+    "delegateTitle": "Speakers list",
+    "nowSpeaking": "Now speaking",
+    "noOneSpeaking": "No one is speaking right now.",
+    "callNextSpeaker": "Call next speaker",
+    "queueTitle": "Queue ({count})",
+    "queueEmpty": "The queue is empty.",
+    "speakingTimeLabel": "Speaking time (seconds)",
+    "save": "Save",
+    "waitingForChairTitle": "Waiting for the chair",
+    "waitingForChairBody": "Your chair hasn't started the session yet. Check back shortly.",
+    "yourTurn": "You're speaking now.",
+    "yourPosition": "You're #{position} in the queue.",
+    "withdraw": "Withdraw",
+    "joinQueue": "Join speakers list"
+  },
   "join": {
     "title": "Join a committee",
     "subtitle": "You've been invited using an open join code. Add your delegation if you know it — a chair can also assign it later.",

@@ -127,6 +127,23 @@
     "generateChairCode": "Generar código para chair",
     "generateDelegateCode": "Generar código para delegado"
   },
+  "queue": {
+    "chairTitle": "Lista de oradores",
+    "delegateTitle": "Lista de oradores",
+    "nowSpeaking": "Hablando ahora",
+    "noOneSpeaking": "Nadie está hablando en este momento.",
+    "callNextSpeaker": "Llamar al siguiente orador",
+    "queueTitle": "Cola ({count})",
+    "queueEmpty": "La cola está vacía.",
+    "speakingTimeLabel": "Tiempo de uso de la palabra (segundos)",
+    "save": "Guardar",
+    "waitingForChairTitle": "Esperando al chair",
+    "waitingForChairBody": "Tu chair todavía no inició la sesión. Volvé a revisar en un momento.",
+    "yourTurn": "Es tu turno de hablar.",
+    "yourPosition": "Sos el #{position} en la cola.",
+    "withdraw": "Retirarme",
+    "joinQueue": "Unirme a la lista de oradores"
+  },
   "join": {
     "title": "Unirte a un comité",
     "subtitle": "Te invitaron con un código de acceso abierto. Agregá tu delegación si la sabés — un chair también puede asignarla después.",

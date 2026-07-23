@@ -34,19 +34,39 @@ export default async function AdminPage() {
     const { data: membershipRows } = appUser
       ? await supabase
           .from("committee_members")
-          .select("id")
+          .select("committee_id")
           .eq("user_id", appUser.id)
-          .limit(1)
       : { data: null };
 
-    if (membershipRows && membershipRows.length > 0) {
+    const committeeIds = (membershipRows ?? []).map((row) => row.committee_id);
+
+    const { data: myCommittees } =
+      committeeIds.length > 0
+        ? await supabase.from("committees").select("id, name").in("id", committeeIds)
+        : { data: [] };
+
+    if (myCommittees && myCommittees.length > 0) {
       const t = await getTranslations("adminDashboard");
       return (
-        <div className="mx-auto flex max-w-md flex-col gap-2 px-6 py-24 text-center">
-          <p className="font-medium">{t("committeeMemberTitle")}</p>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            {t("committeeMemberBody")}
-          </p>
+        <div className="mx-auto flex max-w-md flex-col gap-4 px-6 py-24 text-center">
+          <div>
+            <p className="font-medium">{t("committeeMemberTitle")}</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              {t("committeeMemberBody")}
+            </p>
+          </div>
+          <ul className="flex flex-col gap-2">
+            {myCommittees.map((committee) => (
+              <li key={committee.id}>
+                <Link
+                  href={`/committee/${committee.id}`}
+                  className="block rounded border border-neutral-200 p-3 hover:border-neutral-400 dark:border-neutral-800"
+                >
+                  {committee.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       );
     }
