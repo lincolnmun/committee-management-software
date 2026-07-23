@@ -163,7 +163,7 @@ export interface Database {
         Row: {
           id: string;
           committee_id: string;
-          email: string;
+          email: string | null;
           role: CommitteeRole;
           delegation: string | null;
           status: InviteStatus;
@@ -174,7 +174,6 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["invites"]["Row"]> & {
           committee_id: string;
-          email: string;
           role: CommitteeRole;
         };
         Update: Partial<Database["public"]["Tables"]["invites"]["Row"]>;
