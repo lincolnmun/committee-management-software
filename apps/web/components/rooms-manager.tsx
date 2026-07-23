@@ -56,7 +56,8 @@ export function RoomsManager({
     }
   }
 
-  async function handleDelete(roomId: string) {
+  async function handleDelete(roomId: string, roomName: string) {
+    if (!window.confirm(t("confirmDelete", { name: roomName }))) return;
     const supabase = createClient();
     await supabase.from("rooms").delete().eq("id", roomId);
     router.refresh();
@@ -107,7 +108,7 @@ export function RoomsManager({
                 <div className="flex gap-3 text-sm">
                   <button onClick={() => startEdit(room)}>{t("edit")}</button>
                   <button
-                    onClick={() => handleDelete(room.id)}
+                    onClick={() => handleDelete(room.id, room.name)}
                     className="text-red-600"
                   >
                     {t("delete")}

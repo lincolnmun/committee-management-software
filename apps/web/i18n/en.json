@@ -32,7 +32,8 @@
     "slugHelp": "Used in links — lowercase letters, numbers, and hyphens only.",
     "contactEmailLabel": "Contact email (optional)",
     "createOrganization": "Create organization",
-    "errorSlugTaken": "That slug is already in use — try another."
+    "errorSlugTaken": "That slug is already in use — try another.",
+    "notForDelegatesNotice": "This creates a brand-new organization account — only do this if you're setting up Dais for the first time as a conference organizer. If you were invited as a chair or delegate, you don't need this: use the invite link or join code your organizer sent you instead."
   },
   "adminDashboard": {
     "title": "Conferences",
@@ -68,7 +69,8 @@
     "delete": "Delete",
     "save": "Save",
     "cancel": "Cancel",
-    "empty": "No rooms yet."
+    "empty": "No rooms yet.",
+    "confirmDelete": "Delete \"{name}\"? This can't be undone."
   },
   "committees": {
     "nameLabel": "Committee name",
@@ -83,7 +85,9 @@
     "delete": "Delete",
     "save": "Save",
     "cancel": "Cancel",
-    "empty": "No committees yet."
+    "empty": "No committees yet.",
+    "errorRoomTaken": "That room is already assigned to another committee.",
+    "confirmDelete": "Delete \"{name}\"? This also removes its roster, invites, and any session data. This can't be undone."
   },
   "schedule": {
     "titleLabel": "Title",
@@ -96,7 +100,8 @@
     "delete": "Delete",
     "save": "Save",
     "cancel": "Cancel",
-    "empty": "Nothing scheduled yet."
+    "empty": "Nothing scheduled yet.",
+    "confirmDelete": "Delete \"{name}\"? This can't be undone."
   },
   "roster": {
     "noCommittees": "Create a committee first before inviting chairs or delegates.",
@@ -115,7 +120,8 @@
     "roleObserver": "Observer",
     "delegationLabel": "Delegation (optional)",
     "delegationPlaceholder": "e.g. France",
-    "sendInvite": "Send invite",
+    "addInvite": "Add to roster",
+    "addInviteHelp": "This doesn't send an email — Dais doesn't have email sending set up yet. Tell this person directly to sign in at the site with this exact email address; they'll be added to the committee automatically the first time they do.",
     "errorGeneric": "Something went wrong. Please try again.",
     "joinCodeTitle": "Open join codes",
     "generateChairCode": "Generate chair join code",

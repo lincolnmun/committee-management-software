@@ -2,8 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import type { CommitteeRole } from "@/lib/supabase/database.types";
 
-export function JoinForm({ code }: { code: string }) {
+export function JoinForm({ code, role }: { code: string; role: CommitteeRole }) {
   const t = useTranslations("join");
   const [delegation, setDelegation] = useState("");
   const [status, setStatus] = useState<"idle" | "saving" | "done" | "error">("idle");
@@ -15,7 +16,10 @@ export function JoinForm({ code }: { code: string }) {
     const response = await fetch("/api/invites/claim", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code, delegation: delegation || null }),
+      body: JSON.stringify({
+        code,
+        delegation: role === "delegate" ? delegation || null : null,
+      }),
     });
 
     setStatus(response.ok ? "done" : "error");
@@ -40,15 +44,17 @@ export function JoinForm({ code }: { code: string }) {
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <label className="flex flex-col gap-1 text-sm">
-          {t("delegationLabel")}
-          <input
-            value={delegation}
-            onChange={(event) => setDelegation(event.target.value)}
-            placeholder={t("delegationPlaceholder")}
-            className="rounded border border-neutral-300 px-3 py-2 dark:border-neutral-700 dark:bg-neutral-900"
-          />
-        </label>
+        {role === "delegate" && (
+          <label className="flex flex-col gap-1 text-sm">
+            {t("delegationLabel")}
+            <input
+              value={delegation}
+              onChange={(event) => setDelegation(event.target.value)}
+              placeholder={t("delegationPlaceholder")}
+              className="rounded border border-neutral-300 px-3 py-2 dark:border-neutral-700 dark:bg-neutral-900"
+            />
+          </label>
+        )}
         <button
           type="submit"
           disabled={status === "saving"}

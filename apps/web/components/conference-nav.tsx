@@ -11,8 +11,8 @@ export function ConferenceNav({ conferenceId }: { conferenceId: string }) {
 
   const tabs = [
     { href: base, label: t("tabOverview") },
-    { href: `${base}/committees`, label: t("tabCommittees") },
     { href: `${base}/rooms`, label: t("tabRooms") },
+    { href: `${base}/committees`, label: t("tabCommittees") },
     { href: `${base}/schedule`, label: t("tabSchedule") },
     { href: `${base}/roster`, label: t("tabRoster") },
   ];

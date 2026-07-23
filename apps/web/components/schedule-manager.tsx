@@ -80,7 +80,8 @@ export function ScheduleManager({
     }
   }
 
-  async function handleDelete(itemId: string) {
+  async function handleDelete(itemId: string, itemTitle: string) {
+    if (!window.confirm(t("confirmDelete", { name: itemTitle }))) return;
     const supabase = createClient();
     await supabase.from("schedule_items").delete().eq("id", itemId);
     router.refresh();
@@ -145,7 +146,10 @@ export function ScheduleManager({
                 </div>
                 <div className="flex gap-3 text-sm">
                   <button onClick={() => startEdit(item)}>{t("edit")}</button>
-                  <button onClick={() => handleDelete(item.id)} className="text-red-600">
+                  <button
+                    onClick={() => handleDelete(item.id, item.title)}
+                    className="text-red-600"
+                  >
                     {t("delete")}
                   </button>
                 </div>

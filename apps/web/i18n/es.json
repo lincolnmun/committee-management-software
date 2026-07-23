@@ -32,7 +32,8 @@
     "slugHelp": "Se usa en los enlaces — solo minúsculas, números y guiones.",
     "contactEmailLabel": "Correo de contacto (opcional)",
     "createOrganization": "Crear organización",
-    "errorSlugTaken": "Ese slug ya está en uso — probá con otro."
+    "errorSlugTaken": "Ese slug ya está en uso — probá con otro.",
+    "notForDelegatesNotice": "Esto crea una organización completamente nueva — hacé esto solo si estás configurando Dais por primera vez como organizador de una conferencia. Si te invitaron como chair o delegado, no necesitás esto: usá el enlace de invitación o el código de acceso que te envió tu organizador."
   },
   "adminDashboard": {
     "title": "Conferencias",
@@ -68,7 +69,8 @@
     "delete": "Eliminar",
     "save": "Guardar",
     "cancel": "Cancelar",
-    "empty": "Todavía no hay salas."
+    "empty": "Todavía no hay salas.",
+    "confirmDelete": "¿Eliminar \"{name}\"? Esto no se puede deshacer."
   },
   "committees": {
     "nameLabel": "Nombre del comité",
@@ -83,7 +85,9 @@
     "delete": "Eliminar",
     "save": "Guardar",
     "cancel": "Cancelar",
-    "empty": "Todavía no hay comités."
+    "empty": "Todavía no hay comités.",
+    "errorRoomTaken": "Esa sala ya está asignada a otro comité.",
+    "confirmDelete": "¿Eliminar \"{name}\"? Esto también elimina su padrón, invitaciones y cualquier dato de sesión. Esto no se puede deshacer."
   },
   "schedule": {
     "titleLabel": "Título",
@@ -96,7 +100,8 @@
     "delete": "Eliminar",
     "save": "Guardar",
     "cancel": "Cancelar",
-    "empty": "Todavía no hay nada en el cronograma."
+    "empty": "Todavía no hay nada en el cronograma.",
+    "confirmDelete": "¿Eliminar \"{name}\"? Esto no se puede deshacer."
   },
   "roster": {
     "noCommittees": "Creá un comité antes de invitar chairs o delegados.",
@@ -115,7 +120,8 @@
     "roleObserver": "Observador",
     "delegationLabel": "Delegación (opcional)",
     "delegationPlaceholder": "ej. Francia",
-    "sendInvite": "Enviar invitación",
+    "addInvite": "Agregar al padrón",
+    "addInviteHelp": "Esto no envía un correo — Dais todavía no tiene el envío de correos configurado. Decile directamente a esta persona que inicie sesión en el sitio con esta dirección exacta; se agregará al comité automáticamente la primera vez que lo haga.",
     "errorGeneric": "Algo salió mal. Intentá de nuevo.",
     "joinCodeTitle": "Códigos de acceso abiertos",
     "generateChairCode": "Generar código para chair",

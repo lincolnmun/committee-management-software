@@ -104,15 +104,30 @@ export function CommitteesManager({
   const [capacity, setCapacity] = useState("");
   const [roomId, setRoomId] = useState("");
   const [language, setLanguage] = useState<LanguageCode>("en");
+  const [addError, setAddError] = useState(false);
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
   const [editCapacity, setEditCapacity] = useState("");
   const [editRoomId, setEditRoomId] = useState("");
   const [editLanguage, setEditLanguage] = useState<LanguageCode>("en");
+  const [editError, setEditError] = useState(false);
+
+  // A room already assigned to another committee can't be picked again —
+  // filtered here so the dropdown itself won't offer it, backed by a DB
+  // constraint (committees_room_id_unique) as the real guarantee.
+  function availableRooms(excludingCommitteeId: string | null) {
+    const takenElsewhere = new Set(
+      committees
+        .filter((c) => c.id !== excludingCommitteeId && c.room_id)
+        .map((c) => c.room_id)
+    );
+    return rooms.filter((room) => !takenElsewhere.has(room.id));
+  }
 
   async function handleAdd(event: React.FormEvent) {
     event.preventDefault();
+    setAddError(false);
     const supabase = createClient();
     const { error } = await supabase.from("committees").insert({
       conference_id: conferenceId,
@@ -122,13 +137,16 @@ export function CommitteesManager({
       interface_language: language,
     });
 
-    if (!error) {
-      setName("");
-      setCapacity("");
-      setRoomId("");
-      setLanguage("en");
-      router.refresh();
+    if (error) {
+      setAddError(true);
+      return;
     }
+
+    setName("");
+    setCapacity("");
+    setRoomId("");
+    setLanguage("en");
+    router.refresh();
   }
 
   function startEdit(committee: Committee) {
@@ -137,6 +155,7 @@ export function CommitteesManager({
     setEditCapacity(committee.capacity != null ? String(committee.capacity) : "");
     setEditRoomId(committee.room_id ?? "");
     setEditLanguage(committee.interface_language);
+    setEditError(false);
   }
 
   async function handleSaveEdit(committeeId: string) {
@@ -151,13 +170,17 @@ export function CommitteesManager({
       })
       .eq("id", committeeId);
 
-    if (!error) {
-      setEditingId(null);
-      router.refresh();
+    if (error) {
+      setEditError(true);
+      return;
     }
+
+    setEditingId(null);
+    router.refresh();
   }
 
-  async function handleDelete(committeeId: string) {
+  async function handleDelete(committeeId: string, committeeName: string) {
+    if (!window.confirm(t("confirmDelete", { name: committeeName }))) return;
     const supabase = createClient();
     await supabase.from("committees").delete().eq("id", committeeId);
     router.refresh();
@@ -186,7 +209,7 @@ export function CommitteesManager({
                   setRoomId={setEditRoomId}
                   language={editLanguage}
                   setLanguage={setEditLanguage}
-                  rooms={rooms}
+                  rooms={availableRooms(committee.id)}
                   t={t}
                 />
                 <button
@@ -198,6 +221,9 @@ export function CommitteesManager({
                 <button onClick={() => setEditingId(null)} className="text-sm text-neutral-500">
                   {t("cancel")}
                 </button>
+                {editError && (
+                  <p className="w-full text-sm text-red-600">{t("errorRoomTaken")}</p>
+                )}
               </div>
             ) : (
               <div className="flex items-center justify-between">
@@ -215,7 +241,10 @@ export function CommitteesManager({
                 </div>
                 <div className="flex gap-3 text-sm">
                   <button onClick={() => startEdit(committee)}>{t("edit")}</button>
-                  <button onClick={() => handleDelete(committee.id)} className="text-red-600">
+                  <button
+                    onClick={() => handleDelete(committee.id, committee.name)}
+                    className="text-red-600"
+                  >
                     {t("delete")}
                   </button>
                 </div>
@@ -238,7 +267,7 @@ export function CommitteesManager({
           setRoomId={setRoomId}
           language={language}
           setLanguage={setLanguage}
-          rooms={rooms}
+          rooms={availableRooms(null)}
           t={t}
         />
         <button
@@ -247,6 +276,9 @@ export function CommitteesManager({
         >
           {t("addCommittee")}
         </button>
+        {addError && (
+          <p className="w-full text-sm text-red-600">{t("errorRoomTaken")}</p>
+        )}
       </form>
     </div>
   );
