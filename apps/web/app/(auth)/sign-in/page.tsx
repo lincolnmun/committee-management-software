@@ -17,6 +17,7 @@ function SignInForm() {
   const t = useTranslations("auth");
   const searchParams = useSearchParams();
   const next = searchParams.get("next");
+  const callbackError = searchParams.get("error");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -64,6 +65,12 @@ function SignInForm() {
           {t("signInSubtitle")}
         </p>
       </div>
+
+      {callbackError && (
+        <p className="rounded border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
+          {callbackError}
+        </p>
+      )}
 
       <form onSubmit={handleMagicLink} className="flex flex-col gap-3">
         <label className="flex flex-col gap-1 text-sm">

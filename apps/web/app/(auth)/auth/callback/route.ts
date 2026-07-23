@@ -23,30 +23,38 @@ export async function GET(request: Request) {
         data: { user: authUser },
       } = await supabase.auth.getUser();
 
-      if (authUser?.email) {
-        // Self-heals the profile row on every sign-in, not just the first
-        // one — the on_auth_user_created trigger only fires on a genuine
-        // INSERT into auth.users, so it never re-runs for an existing
-        // identity signing back in (e.g. after the profile row was
-        // deleted, or any other drift between auth.users and public.users).
-        const { data: appUser } = await supabase
-          .from("users")
-          .upsert(
-            {
-              auth_user_id: authUser.id,
-              display_name:
-                authUser.user_metadata?.full_name ?? authUser.email.split("@")[0],
-              email: authUser.email,
-            },
-            { onConflict: "auth_user_id" }
-          )
-          .select("id")
-          .single();
-
-        if (appUser) {
-          await claimInvitesByEmail(appUser.id, authUser.email);
-        }
+      if (!authUser?.email) {
+        console.error("auth callback: authenticated user has no email", authUser);
+        return NextResponse.redirect(`${origin}/sign-in?error=no_email`);
       }
+
+      // Self-heals the profile row on every sign-in, not just the first
+      // one — the on_auth_user_created trigger only fires on a genuine
+      // INSERT into auth.users, so it never re-runs for an existing
+      // identity signing back in (e.g. after the profile row was
+      // deleted, or any other drift between auth.users and public.users).
+      const { data: appUser, error: upsertError } = await supabase
+        .from("users")
+        .upsert(
+          {
+            auth_user_id: authUser.id,
+            display_name:
+              authUser.user_metadata?.full_name ?? authUser.email.split("@")[0],
+            email: authUser.email,
+          },
+          { onConflict: "auth_user_id" }
+        )
+        .select("id")
+        .single();
+
+      if (upsertError || !appUser) {
+        console.error("auth callback: users upsert failed", upsertError);
+        return NextResponse.redirect(
+          `${origin}/sign-in?error=${encodeURIComponent(upsertError?.message ?? "profile_upsert_failed")}`
+        );
+      }
+
+      await claimInvitesByEmail(appUser.id, authUser.email);
 
       return NextResponse.redirect(`${origin}${next}`);
     }
