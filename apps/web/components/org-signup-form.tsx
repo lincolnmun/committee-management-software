@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -15,7 +14,6 @@ function slugify(value: string) {
 
 export function OrgSignupForm() {
   const t = useTranslations("orgSignup");
-  const router = useRouter();
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [slugEdited, setSlugEdited] = useState(false);
@@ -50,7 +48,10 @@ export function OrgSignupForm() {
       return;
     }
 
-    router.refresh();
+    // A hard reload (not router.refresh()) so this reliably reflects the
+    // new organization regardless of client-side router/cache quirks —
+    // this only runs once per account, so the extra reload cost is fine.
+    window.location.href = "/admin";
   }
 
   return (
