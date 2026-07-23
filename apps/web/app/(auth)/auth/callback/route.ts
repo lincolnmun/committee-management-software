@@ -24,10 +24,23 @@ export async function GET(request: Request) {
       } = await supabase.auth.getUser();
 
       if (authUser?.email) {
+        // Self-heals the profile row on every sign-in, not just the first
+        // one — the on_auth_user_created trigger only fires on a genuine
+        // INSERT into auth.users, so it never re-runs for an existing
+        // identity signing back in (e.g. after the profile row was
+        // deleted, or any other drift between auth.users and public.users).
         const { data: appUser } = await supabase
           .from("users")
+          .upsert(
+            {
+              auth_user_id: authUser.id,
+              display_name:
+                authUser.user_metadata?.full_name ?? authUser.email.split("@")[0],
+              email: authUser.email,
+            },
+            { onConflict: "auth_user_id" }
+          )
           .select("id")
-          .eq("auth_user_id", authUser.id)
           .single();
 
         if (appUser) {
